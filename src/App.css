@@ -330,6 +330,44 @@
   margin-left: 0.2rem;
 }
 
+/* Language Selector Pill */
+.language-selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 0.25rem 0.65rem 0.25rem 0.75rem;
+  border-radius: 9999px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.2s ease;
+}
+
+.language-selector-wrapper:hover {
+  border-color: var(--saathi-cyan);
+}
+
+.lang-icon {
+  font-size: 0.95rem;
+}
+
+.morning-lang-select {
+  background: transparent;
+  border: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  padding-right: 0.2rem;
+}
+
+.morning-lang-select option {
+  background: var(--card-bg);
+  color: var(--text-dark);
+}
+
 .os-theme-btn, .hud-icon-btn {
   background: var(--card-bg);
   border: 1px solid var(--card-border);

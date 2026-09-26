@@ -790,6 +790,27 @@ export default function App() {
             <span className="date-text">Mon, 12 May</span>
           </div>
 
+          {/* Language Selector Dropdown */}
+          <div className="language-selector-wrapper">
+            <span className="lang-icon">🌐</span>
+            <select
+              className="morning-lang-select"
+              value={selectedLang}
+              onChange={(e) => setSelectedLang(e.target.value)}
+              aria-label="Select Saathi Language"
+            >
+              <option value="en">English</option>
+              <option value="hi">हिंदी (Hindi)</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="bn">বাংলা (Bengali)</option>
+              <option value="ta">தமிழ் (Tamil)</option>
+              <option value="te">తెలుగు (Telugu)</option>
+              <option value="mr">मराठी (Marathi)</option>
+            </select>
+          </div>
+
           {/* Quick HUD Peeking Tabs */}
           <button 
             className="os-theme-btn"
@@ -921,18 +942,30 @@ export default function App() {
             <div className="robot-greeting-block">
               {robotState === 'listening' ? (
                 <>
-                  <h2 className="greeting-primary">I'm listening...</h2>
-                  <p className="greeting-secondary">Speak naturally, Ramesh ji.</p>
+                  <h2 className="greeting-primary">
+                    {selectedLang === 'hi' ? 'मैं सुन रहा हूँ...' : "I'm listening..."}
+                  </h2>
+                  <p className="greeting-secondary">
+                    {selectedLang === 'hi' ? 'सहजता से बोलिए, मैं ध्यान से सुन रहा हूँ।' : "Speak naturally, I'm right here with you."}
+                  </p>
                 </>
               ) : robotState === 'thinking' ? (
                 <>
-                  <h2 className="greeting-primary">Let me take care of that.</h2>
-                  <p className="greeting-secondary">Processing your request...</p>
+                  <h2 className="greeting-primary">
+                    {selectedLang === 'hi' ? 'मैं समझ रहा हूँ...' : "Let me take care of that."}
+                  </h2>
+                  <p className="greeting-secondary">
+                    {selectedLang === 'hi' ? 'एक पल दीजिए...' : "Processing your request..."}
+                  </p>
                 </>
               ) : (
                 <>
-                  <h2 className="greeting-primary">Good morning, Ramesh.</h2>
-                  <p className="greeting-secondary">I'm here with you.</p>
+                  <h2 className="greeting-primary">
+                    {selectedLang === 'hi' ? 'नमस्ते, शुभ प्रभात।' : 'Good morning, Ramesh.'}
+                  </h2>
+                  <p className="greeting-secondary">
+                    {selectedLang === 'hi' ? 'मैं आपके साथ यहीं उपस्थित हूँ।' : "I'm here with you."}
+                  </p>
                 </>
               )}
             </div>
@@ -966,7 +999,7 @@ export default function App() {
                 )}
               </button>
               <div className="mic-caption">
-                {isListening ? 'Listening...' : 'Tap to talk'}
+                {isListening ? (selectedLang === 'hi' ? 'सुन रहा हूँ...' : 'Listening...') : (selectedLang === 'hi' ? 'बोलने के लिए टैप करें' : 'Tap to talk')}
               </div>
             </div>
           </div>
