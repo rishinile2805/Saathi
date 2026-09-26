@@ -1,159 +1,72 @@
 /* ==========================================================================
-   SAATHI — Companion Brain OS
-   Dual-Theme Engine: Luminous Light Mode & Deep OLED Dark Mode
-   Robot Face is fully visible, kind, and gentle matching reference image:
-   - Glossy white porcelain curved robot head
-   - Cyan bezel frame & ear discs with soft inner glow
-   - Friendly soft-curved cyan digital pill eyes with scanlines
-   - Wide, glowing, gentle filled cyan smile with kind upturned corners
-   - Slightly tilted, inquisitive, caring posture
-   ========================================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-/* ==========================================
-   THEME DEFINITIONS & COLOR TOKENS
+   SAATHI — Peaceful Morning Window Companion Home
+   Visual Direction: Morning inside a warm, comfortable home with soft sunlight,
+   indoor plants, wooden surfaces, and Saathi as the hero companion physically present.
+   
+   Color System:
+   - Warm Ivory: #F4F1E8
+   - Soft Blue: #DCEAF0
+   - Muted Blue: #BFD9DF
+   - Soft Sage: #DCE4D5
+   - Saathi Cyan: #35BDF2
+   - Dark Text: #26343A
    ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root,
 .theme-light {
-  /* Ambient Background (Light Mode) */
-  --bg-primary: #F0F4F8;
-  --bg-radial-1: rgba(56, 189, 248, 0.12);
-  --bg-radial-2: rgba(99, 102, 241, 0.08);
-  --bg-radial-3: rgba(52, 211, 153, 0.06);
-  --bg-gradient-start: #FFFFFF;
-  --bg-gradient-mid: #F1F6FB;
-  --bg-gradient-end: #E4ECF4;
-
-  /* Accent Colors */
-  --accent-primary: #0284C7;
-  --accent-primary-light: #38BDF8;
-  --accent-primary-glow: rgba(56, 189, 248, 0.3);
-  --accent-warm: #D97706;
-  --accent-warm-glow: rgba(217, 119, 6, 0.25);
-  --accent-mint: #059669;
-  --accent-mint-glow: rgba(5, 150, 105, 0.2);
-  --accent-rose: #DB2777;
-  --accent-danger: #DC2626;
-  --accent-success: #16A34A;
-
-  /* Text Colors */
-  --text-primary: #0F172A;
-  --text-secondary: #334155;
-  --text-muted: #64748B;
-  --text-dim: #94A3B8;
-
-  /* Surfaces & Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.90);
-  --glass-border: rgba(203, 213, 225, 0.85);
-  --glass-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);
-  --panel-bg: rgba(255, 255, 255, 0.98);
-  --panel-border: rgba(203, 213, 225, 0.8);
-  --panel-shadow: -15px 0 45px rgba(15, 23, 42, 0.12);
-
-  /* 3D Robot Head Pod (Smooth Glossy White Shell like in reference) */
-  --pod-bg: linear-gradient(160deg, #FFFFFF 0%, #F8FAFC 35%, #E2E8F0 85%, #CBD5E1 100%);
-  --pod-border: rgba(255, 255, 255, 0.95);
-  --pod-shadow: 
-    0 35px 70px rgba(15, 23, 42, 0.16),
-    0 12px 30px rgba(56, 189, 248, 0.15),
-    inset 0 4px 8px rgba(255, 255, 255, 1),
-    inset 0 -6px 12px rgba(148, 163, 184, 0.35);
+  --bg-ivory: #F4F1E8;
+  --bg-window-sky: #DCEAF0;
+  --bg-muted-blue: #BFD9DF;
+  --bg-sage: #DCE4D5;
+  --saathi-cyan: #35BDF2;
+  --saathi-cyan-glow: rgba(53, 189, 242, 0.35);
+  --text-dark: #26343A;
+  --text-muted: #526670;
+  --text-light: #7E939D;
   
-  /* Cyan Accented Inner Bezel Frame (Exactly like the robot reference) */
-  --bezel-bg: linear-gradient(145deg, #38BDF8 0%, #0284C7 60%, #0369A1 100%);
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --card-border: rgba(220, 234, 240, 0.9);
+  --card-shadow: 0 12px 35px rgba(38, 52, 58, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+
+  /* Robot Hardware Colors */
+  --pod-bg: linear-gradient(160deg, #FFFFFF 0%, #F8FAFC 40%, #E2E8F0 90%);
+  --pod-border: rgba(255, 255, 255, 0.95);
+  --pod-shadow: 0 30px 65px rgba(38, 52, 58, 0.14), 0 10px 25px rgba(53, 189, 242, 0.18), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  --bezel-bg: linear-gradient(145deg, #35BDF2 0%, #0284C7 65%, #0369A1 100%);
   --bezel-border: #7DD3FC;
-  --bezel-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.6), 0 6px 16px rgba(2, 132, 199, 0.35);
-
-  /* Deep Glossy Curved OLED Visor Screen */
+  --bezel-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.6), 0 6px 18px rgba(53, 189, 242, 0.3);
   --visor-bg: radial-gradient(ellipse at 50% 35%, #0F2038 0%, #07101E 70%, #030810 100%);
-  --visor-border: rgba(56, 189, 248, 0.4);
-  --visor-shadow: inset 0 8px 30px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(56, 189, 248, 0.2);
-
-  /* Robot Ears (Rotational discs with cyan ring) */
-  --ear-bg: linear-gradient(145deg, #FFFFFF, #E2E8F0);
-  --ear-ring: #38BDF8;
-  --ear-glow: 0 0 16px rgba(56, 189, 248, 0.6);
-
-  /* Glowing Kind Cyan Eyes and Smile */
-  --robot-cyan: #38BDF8;
-  --robot-cyan-bright: #E0F2FE;
-  --robot-cyan-glow: 0 0 25px #38BDF8, 0 0 50px rgba(56, 189, 248, 0.7), 0 0 80px rgba(14, 165, 233, 0.4);
+  --visor-border: rgba(53, 189, 242, 0.4);
+  --visor-shadow: inset 0 8px 30px rgba(0, 0, 0, 0.9);
 }
-
-/* ==========================================
-   DARK THEME (Deep OLED Space Edition)
-   ========================================== */
 
 .theme-dark {
-  /* Ambient Background (Dark Mode) */
-  --bg-primary: #060911;
-  --bg-radial-1: rgba(56, 189, 248, 0.14);
-  --bg-radial-2: rgba(99, 102, 241, 0.10);
-  --bg-radial-3: rgba(16, 185, 129, 0.08);
-  --bg-gradient-start: #060911;
-  --bg-gradient-mid: #0B111E;
-  --bg-gradient-end: #030712;
+  --bg-ivory: #0B1216;
+  --bg-window-sky: #0F1D26;
+  --bg-muted-blue: #182B36;
+  --bg-sage: #142421;
+  --saathi-cyan: #35BDF2;
+  --saathi-cyan-glow: rgba(53, 189, 242, 0.4);
+  --text-dark: #F0F4F6;
+  --text-muted: #94A8B3;
+  --text-light: #647B87;
 
-  /* Accent Colors */
-  --accent-primary: #38BDF8;
-  --accent-primary-light: #7DD3FC;
-  --accent-primary-glow: rgba(56, 189, 248, 0.35);
-  --accent-warm: #FBBF24;
-  --accent-warm-glow: rgba(251, 191, 36, 0.35);
-  --accent-mint: #34D399;
-  --accent-mint-glow: rgba(52, 211, 153, 0.3);
-  --accent-rose: #F472B6;
-  --accent-danger: #F87171;
-  --accent-success: #34D399;
+  --card-bg: rgba(18, 28, 34, 0.88);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
 
-  /* Text Colors */
-  --text-primary: #F8FAFC;
-  --text-secondary: #CBD5E1;
-  --text-muted: #94A3B8;
-  --text-dim: #64748B;
-
-  /* Surfaces & Glassmorphism */
-  --glass-bg: rgba(15, 23, 42, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 1px rgba(255, 255, 255, 0.1);
-  --panel-bg: rgba(11, 17, 30, 0.96);
-  --panel-border: rgba(255, 255, 255, 0.1);
-  --panel-shadow: -15px 0 50px rgba(0, 0, 0, 0.75);
-
-  /* 3D Robot Head Pod (Metallic Pearlescent Pod in Dark Mode) */
-  --pod-bg: linear-gradient(160deg, #334155 0%, #1E293B 45%, #0F172A 90%);
-  --pod-border: rgba(255, 255, 255, 0.22);
-  --pod-shadow: 
-    0 40px 80px rgba(0, 0, 0, 0.85),
-    0 0 50px rgba(56, 189, 248, 0.2),
-    inset 0 2px 4px rgba(255, 255, 255, 0.3);
-
-  /* Cyan Bezel Frame */
-  --bezel-bg: linear-gradient(145deg, #0284C7 0%, #0369A1 70%, #075985 100%);
-  --bezel-border: #38BDF8;
-  --bezel-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 0 20px rgba(56, 189, 248, 0.4);
-
-  /* Deep Visor */
+  --pod-bg: linear-gradient(160deg, #2A3B45 0%, #15232C 90%);
+  --pod-border: rgba(255, 255, 255, 0.2);
+  --pod-shadow: 0 35px 80px rgba(0, 0, 0, 0.8), 0 0 45px rgba(53, 189, 242, 0.2);
+  --bezel-bg: linear-gradient(145deg, #0284C7 0%, #0369A1 70%);
+  --bezel-border: #35BDF2;
+  --bezel-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 0 20px rgba(53, 189, 242, 0.4);
   --visor-bg: radial-gradient(ellipse at 50% 35%, #030812 0%, #000206 100%);
-  --visor-border: rgba(56, 189, 248, 0.3);
-  --visor-shadow: inset 0 8px 35px rgba(0, 0, 0, 0.95), 0 0 25px rgba(56, 189, 248, 0.2);
-
-  /* Robot Ears */
-  --ear-bg: linear-gradient(145deg, #334155, #1E293B);
-  --ear-ring: #38BDF8;
-  --ear-glow: 0 0 20px rgba(56, 189, 248, 0.7);
-
-  /* Glowing Kind Cyan Eyes and Smile */
-  --robot-cyan: #38BDF8;
-  --robot-cyan-bright: #E0F2FE;
-  --robot-cyan-glow: 0 0 30px #38BDF8, 0 0 65px rgba(56, 189, 248, 0.8), 0 0 95px rgba(14, 165, 233, 0.5);
+  --visor-border: rgba(53, 189, 242, 0.3);
+  --visor-shadow: inset 0 8px 35px rgba(0, 0, 0, 0.95);
 }
-
-/* ==========================================
-   RESET & FOUNDATIONS
-   ========================================== */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -162,354 +75,503 @@
 }
 
 /* ==========================================
-   BASE APP CONTAINER — FULL VIEWPORT BRAIN ENVIRONMENT
+   FULL-SCREEN VIEWPORT APP LAYOUT
    ========================================== */
 
 .jarvis-robot-app {
   height: 100vh;
   width: 100vw;
-  background:
-    radial-gradient(ellipse at 50% 15%, var(--bg-radial-1) 0%, transparent 60%),
-    radial-gradient(ellipse at 85% 80%, var(--bg-radial-2) 0%, transparent 50%),
-    radial-gradient(ellipse at 15% 75%, var(--bg-radial-3) 0%, transparent 50%),
-    linear-gradient(175deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
-  color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-ivory);
+  color: var(--text-dark);
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: background 0.4s ease, color 0.4s ease;
-}
-
-/* Ambient glow drift */
-.jarvis-robot-app::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 30% 25%, var(--bg-radial-1) 0%, transparent 40%),
-    radial-gradient(circle at 70% 75%, var(--bg-radial-2) 0%, transparent 40%);
-  pointer-events: none;
-  z-index: 1;
-  animation: ambient-drift 12s infinite alternate ease-in-out;
-}
-
-@keyframes ambient-drift {
-  0% { opacity: 0.5; transform: scale(1) translate(0, 0); }
-  50% { opacity: 0.85; transform: scale(1.02) translate(8px, -5px); }
-  100% { opacity: 0.5; transform: scale(1) translate(-5px, 3px); }
+  justify-content: space-between;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* ==========================================
-   FLOATING AMBIENT OS TOP BAR
+   MORNING ROOM BACKGROUND & SUNLIGHT
    ========================================== */
 
-.os-ambient-bar {
+.morning-room-background {
   position: absolute;
-  top: 0.85rem;
-  left: 1.25rem;
-  right: 1.25rem;
-  z-index: 30;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Large Morning Window Backdrop on the Right */
+.window-pane-backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60vw;
+  height: 100vh;
+  background: radial-gradient(ellipse at 70% 30%, #FFFDF7 0%, var(--bg-window-sky) 45%, var(--bg-muted-blue) 100%);
+  opacity: 0.85;
+  filter: blur(25px);
+  mask-image: linear-gradient(to right, transparent 0%, black 40%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);
+}
+
+.distant-trees {
+  position: absolute;
+  bottom: 15%;
+  right: 5%;
+  width: 350px;
+  height: 250px;
+  background: radial-gradient(circle, var(--bg-sage) 0%, rgba(180, 205, 175, 0.4) 60%, transparent 80%);
+  filter: blur(40px);
+}
+
+/* Slow moving gentle morning sunbeams */
+.morning-sun-beam {
+  position: absolute;
+  top: -10%;
+  right: 15%;
+  width: 450px;
+  height: 1200px;
+  background: linear-gradient(135deg, rgba(255, 248, 220, 0.35) 0%, rgba(253, 230, 138, 0.12) 40%, transparent 75%);
+  transform: rotate(-25deg);
+  filter: blur(35px);
+  animation: sunbeam-drift 30s infinite alternate ease-in-out;
+}
+
+@keyframes sunbeam-drift {
+  0% { transform: rotate(-25deg) translateX(0); opacity: 0.35; }
+  100% { transform: rotate(-21deg) translateX(-40px); opacity: 0.55; }
+}
+
+/* Indoor Plants at edges */
+.indoor-plant {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(6px);
+  opacity: 0.45;
+  transition: transform 6s infinite alternate ease-in-out;
+}
+
+.indoor-plant.plant-left {
+  bottom: 0;
+  left: -40px;
+  width: 260px;
+  height: 380px;
+  background: radial-gradient(ellipse at 30% 70%, var(--bg-sage) 0%, rgba(130, 165, 120, 0.3) 60%, transparent 80%);
+  animation: plant-sway-left 7s infinite alternate ease-in-out;
+}
+
+.indoor-plant.plant-right {
+  top: 10%;
+  right: -30px;
+  width: 220px;
+  height: 300px;
+  background: radial-gradient(ellipse at 70% 30%, var(--bg-sage) 0%, rgba(130, 165, 120, 0.35) 60%, transparent 80%);
+  animation: plant-sway-right 8s infinite alternate ease-in-out;
+}
+
+@keyframes plant-sway-left {
+  0% { transform: rotate(0deg) translateY(0); }
+  100% { transform: rotate(2deg) translateY(-6px); }
+}
+
+@keyframes plant-sway-right {
+  0% { transform: rotate(0deg) translateY(0); }
+  100% { transform: rotate(-2.5deg) translateY(5px); }
+}
+
+/* Floating Dust Motes in Sunlight */
+.floating-dust-particle {
+  position: absolute;
+  background: #FFFFFF;
+  border-radius: 50%;
+  opacity: 0.4;
+  filter: blur(1px);
+  animation: float-mote 22s infinite ease-in-out;
+}
+
+.floating-dust-particle.p1 { top: 25%; right: 30%; width: 4px; height: 4px; animation-delay: 0s; }
+.floating-dust-particle.p2 { top: 55%; right: 45%; width: 3px; height: 3px; animation-delay: 5s; }
+.floating-dust-particle.p3 { top: 40%; right: 20%; width: 5px; height: 5px; animation-delay: 10s; }
+
+@keyframes float-mote {
+  0% { transform: translateY(0) translateX(0); opacity: 0.2; }
+  50% { transform: translateY(-40px) translateX(20px); opacity: 0.5; }
+  100% { transform: translateY(-80px) translateX(-10px); opacity: 0.1; }
+}
+
+/* Foreground Warm Wooden Surface */
+.foreground-desk-surface {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(180deg, transparent 0%, rgba(220, 210, 195, 0.25) 40%, rgba(200, 185, 170, 0.5) 100%);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1.15rem;
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(1.4);
-  -webkit-backdrop-filter: blur(24px) saturate(1.4);
-  border: 1px solid var(--glass-border);
-  border-radius: 18px;
-  box-shadow: var(--glass-shadow);
-  transition: all 0.3s ease;
+  padding: 0 4rem;
+  opacity: 0.7;
 }
 
-.os-brand-indicator {
+.desk-object {
+  border-radius: 8px;
+  filter: blur(3px);
+}
+
+.desk-object.notebook { width: 70px; height: 45px; background: rgba(185, 160, 140, 0.5); }
+.desk-object.tea-cup { width: 35px; height: 35px; border-radius: 50%; background: rgba(240, 235, 225, 0.7); }
+.desk-object.reading-glasses { width: 60px; height: 20px; border: 2px solid rgba(120, 100, 90, 0.4); border-radius: 12px; }
+
+/* ==========================================
+   TOP HEADER BAR (Subtle & Lightweight)
+   ========================================== */
+
+.morning-header {
+  position: relative;
+  z-index: 25;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
 }
 
-.os-core-gem {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--accent-primary-light);
-  box-shadow: 0 0 10px var(--accent-primary-light), 0 0 20px var(--accent-primary-glow);
-  animation: gem-glow 3s infinite alternate ease-in-out;
-}
-
-@keyframes gem-glow {
-  0% { transform: scale(0.9); opacity: 0.75; }
-  100% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 14px var(--accent-primary-light), 0 0 28px var(--accent-primary-glow); }
-}
-
-.os-title {
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--text-primary);
-  text-transform: uppercase;
-}
-
-.os-badge-chip {
-  font-size: 0.62rem;
-  font-weight: 700;
-  padding: 0.15rem 0.45rem;
-  background: var(--accent-primary-glow);
-  border: 1px solid var(--accent-primary-light);
-  border-radius: 6px;
-  color: var(--accent-primary);
-  letter-spacing: 0.5px;
-}
-
-.os-actions-cluster {
+/* TOP LEFT: Branding */
+.saathi-brand-header {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.75rem;
 }
 
-.os-nav-tabs {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.os-tab-btn, .hud-icon-btn {
-  background: rgba(125, 125, 125, 0.08);
-  border: 1px solid var(--glass-border);
-  color: var(--text-secondary);
-  padding: 0.35rem 0.75rem;
-  border-radius: 10px;
-  font-size: 0.74rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.os-tab-btn:hover, .os-tab-btn.active,
-.hud-icon-btn:hover, .hud-icon-btn.active {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: #FFFFFF;
-  box-shadow: 0 2px 14px var(--accent-primary-glow);
-}
-
-/* Theme Toggle Button */
-.os-theme-btn {
-  background: rgba(125, 125, 125, 0.08);
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
-  padding: 0.32rem 0.65rem;
-  border-radius: 10px;
-  font-size: 0.74rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  font-family: inherit;
-}
-
-.os-theme-btn:hover {
-  background: var(--accent-primary-glow);
-  border-color: var(--accent-primary-light);
-  color: var(--accent-primary);
-}
-
-.theme-btn-label {
-  font-size: 0.7rem;
-  font-weight: 600;
-}
-
-/* Sound Button */
-.os-sound-btn {
-  background: rgba(125, 125, 125, 0.08);
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+.brand-robot-icon {
+  font-size: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  box-shadow: var(--card-shadow);
 }
 
-.os-sound-btn:hover {
-  background: var(--accent-primary-glow);
-  border-color: var(--accent-primary-light);
+.brand-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1.1;
+  letter-spacing: -0.3px;
 }
 
-/* Status Badge */
-.status-badge {
+.brand-subtitle {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* TOP RIGHT: System info & Clock */
+.morning-system-info {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+  gap: 1rem;
+}
+
+.online-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--text-muted);
-  background: rgba(125, 125, 125, 0.08);
-  padding: 0.32rem 0.65rem;
-  border-radius: 8px;
-  border: 1px solid var(--glass-border);
-  text-transform: uppercase;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  box-shadow: var(--card-shadow);
 }
 
 .status-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--accent-success);
-  box-shadow: 0 0 8px var(--accent-success);
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
 }
 
-.status-dot.listening {
-  background: var(--accent-warm);
-  box-shadow: 0 0 12px var(--accent-warm);
-  animation: pulse-dot 1.2s infinite ease-in-out;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.6; }
-}
-
-/* Language Selector */
-.lang-selector-pill {
+.time-weather-pill {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  background: rgba(125, 125, 125, 0.08);
-  border: 1px solid var(--glass-border);
-  border-radius: 10px;
-  padding: 0.25rem 0.6rem;
-  transition: all 0.2s ease;
-}
-
-.lang-selector-pill:hover {
-  border-color: var(--accent-primary-light);
-  background: var(--accent-primary-glow);
-}
-
-.lang-icon {
-  font-size: 0.8rem;
-}
-
-.lang-select-dropdown {
-  background: transparent;
-  color: var(--text-primary);
-  border: none;
-  font-size: 0.72rem;
+  gap: 0.5rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  cursor: pointer;
-  outline: none;
-  font-family: inherit;
+  color: var(--text-dark);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  box-shadow: var(--card-shadow);
 }
 
-.lang-select-dropdown option {
-  background: var(--bg-gradient-start);
-  color: var(--text-primary);
+.weather-sun {
+  color: #F59E0B;
+  font-size: 0.95rem;
 }
 
-/* ==========================================
-   MAIN ROBOT ARENA (FULL VIEWPORT)
-   ========================================== */
+.date-text {
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-left: 0.2rem;
+}
 
-.robot-arena {
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 10;
+.os-theme-btn, .hud-icon-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-dark);
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  transition: all 0.2s ease;
 }
 
-.robot-display-frame {
+.os-theme-btn:hover, .hud-icon-btn:hover {
+  transform: scale(1.05);
+  border-color: var(--saathi-cyan);
+}
+
+/* ==========================================
+   MAIN HERO ARENA (3-COLUMN LAYOUT)
+   ========================================== */
+
+.robot-arena {
   position: relative;
+  z-index: 20;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  align-items: center;
+  padding: 0 2.5rem;
+  gap: 2rem;
   width: 100%;
-  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* SIDE PANELS (Translucent Warm White Cards) */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.panel-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+
+.panel-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(38, 52, 58, 0.09);
+}
+
+.panel-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.85rem;
+}
+
+.panel-icon {
+  font-size: 1.15rem;
+}
+
+.panel-card-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* Plan List */
+.plan-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.plan-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 10px;
+  background: rgba(245, 242, 235, 0.5);
+}
+
+.plan-item.done {
+  opacity: 0.65;
+  text-decoration: line-through;
+}
+
+.plan-time {
+  font-weight: 700;
+  color: var(--saathi-cyan);
+}
+
+.plan-text {
+  flex: 1;
+  margin: 0 0.5rem;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.plan-status {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #10B981;
+}
+
+.plan-status.upcoming {
+  color: var(--text-muted);
+}
+
+.panel-footer-btn {
+  width: 100%;
+  margin-top: 0.85rem;
+  background: transparent;
+  border: none;
+  color: var(--saathi-cyan);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: right;
+}
+
+/* Contextual Memory Cards (Right Side) */
+.memory-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.memory-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.story-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.memory-card-actions {
+  display: flex;
+  gap: 0.45rem;
+  margin-top: 0.2rem;
+}
+
+.memory-action-btn {
+  background: var(--saathi-cyan);
+  border: none;
+  color: #FFFFFF;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.memory-action-btn:hover {
+  transform: scale(1.04);
+}
+
+.memory-action-btn.secondary {
+  background: rgba(125, 125, 125, 0.1);
+  color: var(--text-dark);
+}
+
+/* ==========================================
+   CENTER: SAATHI ROBOT & GREETING & MIC
+   ========================================== */
+
+.center-robot-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  background: transparent;
 }
 
-/* Soft ambient halo behind robot head */
+.robot-display-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Soft Breathing Cyan Halo Behind Robot */
 .robot-ambient-halo {
   position: absolute;
-  width: 680px;
-  height: 680px;
+  top: 15%;
+  width: 450px;
+  height: 450px;
   border-radius: 50%;
   background: radial-gradient(circle,
-    rgba(56, 189, 248, 0.2) 0%,
-    rgba(125, 211, 252, 0.1) 40%,
+    var(--saathi-cyan-glow) 0%,
+    rgba(53, 189, 242, 0.12) 40%,
     transparent 70%
   );
-  filter: blur(80px);
+  filter: blur(60px);
   pointer-events: none;
   opacity: 0.85;
-  transition: all 0.8s ease;
+  animation: halo-breathing 4s infinite ease-in-out;
+}
+
+@keyframes halo-breathing {
+  0%, 100% { transform: scale(1); opacity: 0.75; }
+  50% { transform: scale(1.12); opacity: 1; }
 }
 
 .robot-display-frame.state-listening .robot-ambient-halo {
-  background: radial-gradient(circle,
-    var(--accent-warm-glow) 0%,
-    rgba(251, 191, 36, 0.18) 40%,
-    transparent 70%
-  );
-  opacity: 1;
-  transform: scale(1.2);
+  transform: scale(1.22);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(253, 230, 138, 0.15) 50%, transparent 70%);
 }
 
-.robot-display-frame.state-speaking .robot-ambient-halo {
-  background: radial-gradient(circle,
-    rgba(56, 189, 248, 0.3) 0%,
-    rgba(52, 211, 153, 0.15) 45%,
-    transparent 70%
-  );
-  opacity: 1;
-  animation: halo-speak 1.8s infinite alternate ease-in-out;
-}
-
-@keyframes halo-speak {
-  0% { transform: scale(0.98); opacity: 0.8; }
-  100% { transform: scale(1.1); opacity: 1; }
-}
-
-/* ==========================================
-   3D COMPANION ROBOT HEAD POD
-   Matches the friendly, gentle 3D companion robot in the user's reference image!
-   ========================================== */
-
+/* UNCHANGED ROBOT POD FACE HARDWARE STYLES */
 .robot-head-pod {
   position: relative;
-  width: 440px;
-  height: 340px;
+  width: 420px;
+  height: 320px;
   background: var(--pod-bg);
   border: 3px solid var(--pod-border);
-  border-radius: 110px 110px 100px 100px;
+  border-radius: 100px 100px 90px 90px;
   box-shadow: var(--pod-shadow);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  margin-top: -2.2rem;
-  /* Gentle, curious, kind 3.5deg head tilt like the friendly reference robot */
+  padding: 15px;
   transform: rotate(-3.5deg);
   transition: all 0.5s cubic-bezier(0.34, 1.3, 0.64, 1);
   animation: gentle-head-float 5s infinite ease-in-out;
@@ -520,530 +582,373 @@
   50% { transform: rotate(-2deg) translateY(-8px); }
 }
 
-.robot-display-frame.state-listening .robot-head-pod {
-  /* Inquisitive listening perk */
-  transform: rotate(2.5deg) scale(1.02);
-}
-
-.robot-display-frame.state-speaking .robot-head-pod {
-  animation: gentle-speak-nod 1.6s infinite alternate ease-in-out;
-}
-
-@keyframes gentle-speak-nod {
-  0% { transform: rotate(-3.5deg) translateY(0); }
-  100% { transform: rotate(-1.5deg) translateY(-5px); }
-}
-
-/* Top Forehead Groove / Seam */
 .robot-forehead-groove {
   position: absolute;
   top: 14px;
-  width: 70px;
+  width: 65px;
   height: 4px;
   background: rgba(148, 163, 184, 0.4);
   border-radius: 4px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Large Round Ear Discs with Cyan Accent Rings */
 .robot-pod-ear {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 50px;
-  height: 94px;
+  width: 48px;
+  height: 90px;
   background: var(--ear-bg);
   border: 3px solid var(--pod-border);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
   z-index: 1;
 }
 
-.robot-pod-ear.left-ear {
-  left: -28px;
-  border-radius: 28px 8px 8px 28px;
-}
-
-.robot-pod-ear.right-ear {
-  right: -28px;
-  border-radius: 8px 28px 28px 8px;
-}
+.robot-pod-ear.left-ear { left: -26px; border-radius: 26px 8px 8px 26px; }
+.robot-pod-ear.right-ear { right: -26px; border-radius: 8px 26px 26px 8px; }
 
 .ear-inner-glow {
   width: 14px;
-  height: 44px;
+  height: 42px;
   border-radius: 12px;
   background: var(--ear-ring);
   box-shadow: var(--ear-glow);
 }
 
-/* Inner Cyan Bezel Frame — The signature friendly blue border from the reference photo! */
 .robot-bezel-frame {
   width: 100%;
   height: 100%;
   background: var(--bezel-bg);
   border: 3px solid var(--bezel-border);
-  border-radius: 88px;
+  border-radius: 82px;
   box-shadow: var(--bezel-shadow);
-  padding: 12px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s ease;
 }
 
-/* Deep Black Curved Glossy OLED Face Screen */
 .robot-face-stage {
   position: relative;
   width: 100%;
   height: 100%;
   background: var(--visor-bg);
   border: 2px solid var(--visor-border);
-  border-radius: 76px;
+  border-radius: 72px;
   box-shadow: var(--visor-shadow);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.1rem;
+  gap: 1rem;
   overflow: hidden;
 }
 
-/* Diagonal 3D Curved Visor Reflection Glass Sheen */
 .visor-gloss-reflection {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 48%;
-  background: linear-gradient(175deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 75%, transparent 100%);
-  border-radius: 76px 76px 0 0;
+  background: linear-gradient(175deg, rgba(255, 255, 255, 0.16) 0%, transparent 100%);
+  border-radius: 72px 72px 0 0;
   pointer-events: none;
-  z-index: 3;
 }
 
-/* ==========================================
-   KIND, GENTLE ROBOT FACE FEATURES
-   ========================================== */
-
-/* Gentle Friendly Eyebrows */
 .robot-brows-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5.5rem;
+  gap: 5rem;
   margin-bottom: -0.5rem;
-  position: relative;
   z-index: 2;
 }
 
 .soft-brow {
-  width: 44px;
-  height: 4.5px;
-  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), transparent);
+  width: 42px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(53, 189, 242, 0.8), transparent);
   border-radius: 6px;
-  transition: all 0.3s ease;
 }
-
-/* Happy soft upward curve for eyebrows */
-.robot-face-stage.mood-happy .left-brow {
-  transform: translateY(-3px) rotate(4deg);
-}
-
-.robot-face-stage.mood-happy .right-brow {
-  transform: translateY(-3px) rotate(-4deg);
-}
-
-.robot-display-frame.state-thinking .left-brow {
-  transform: translateY(-6px) rotate(-10deg);
-}
-
-.robot-display-frame.state-thinking .right-brow {
-  transform: translateY(4px) rotate(10deg);
-}
-
-/* ==========================================
-   GLOWING CYAN PILL-SHAPED EYES
-   (Matches the vertical rounded capsule eyes in reference photo!)
-   ========================================== */
 
 .robot-eyes-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4.8rem;
-  position: relative;
+  gap: 4.5rem;
   z-index: 2;
 }
 
 .robot-eye-socket {
   position: relative;
-  width: 80px;
-  height: 105px;
+  width: 75px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Friendly Pill / Capsule Shaped Glowing Cyan Eye */
 .robot-eye {
-  width: 66px;
-  height: 98px;
-  background: linear-gradient(180deg, #E0F2FE 0%, #38BDF8 40%, #0284C7 100%);
-  border-radius: 34px;
+  width: 62px;
+  height: 92px;
+  background: linear-gradient(180deg, #E0F2FE 0%, #35BDF2 40%, #0284C7 100%);
+  border-radius: 32px;
   box-shadow: var(--robot-cyan-glow);
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+  transition: all 0.35s ease;
 }
 
-/* Subtle gentle tilt like in the reference */
-.robot-eye.left-eye {
-  transform: rotate(-3deg);
-}
+.robot-eye.left-eye { transform: rotate(-3deg); }
+.robot-eye.right-eye { transform: rotate(3deg); }
 
-.robot-eye.right-eye {
-  transform: rotate(3deg);
-}
-
-/* Digital Scanlines overlay inside the eyes (exactly like the digital CRT look in reference) */
-.eye-scanlines {
+.eye-scanlines, .smile-scanlines {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.22) 0px,
-    rgba(0, 0, 0, 0.22) 2px,
-    transparent 2px,
-    transparent 5px
-  );
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 2px, transparent 2px, transparent 5px);
   pointer-events: none;
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
-/* Digital gleam at top corner */
 .eye-digital-gleam {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 18px;
-  height: 28px;
+  top: 8px; left: 8px;
+  width: 16px; height: 24px;
   background: rgba(255, 255, 255, 0.85);
-  border-radius: 12px;
+  border-radius: 10px;
   filter: blur(1px);
 }
 
-/* Soft blink animation */
-.robot-eye.blinking {
-  transform: scaleY(0.06) !important;
-  box-shadow: 0 0 16px var(--robot-cyan);
-}
-
-/* Happy state eye curve */
-.robot-face-stage.mood-happy .robot-eye {
-  /* Crescent kind arch */
-  border-radius: 34px 34px 22px 22px;
-}
-
-/* Listening Mode — Alert and Inquisitive */
-.robot-display-frame.state-listening .robot-eye {
-  transform: scale(1.06);
-  box-shadow: 0 0 35px #7DD3FC, 0 0 75px rgba(56, 189, 248, 0.9);
-  animation: eye-listen-pulse 2s infinite ease-in-out;
-}
-
-@keyframes eye-listen-pulse {
-  0%, 100% { transform: scale(1.04); }
-  50% { transform: scale(1.09); }
-}
-
-/* Thinking Mode — Gentle Roaming */
-.robot-display-frame.state-thinking .robot-eye {
-  animation: eye-thinking 2.5s infinite ease-in-out;
-}
-
-@keyframes eye-thinking {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(-5px, -3px); }
-  66% { transform: translate(5px, -2px); }
-}
-
-/* ==========================================
-   WARM, KIND, FILLED GLOWING CYAN SMILE
-   (Filled crescent smile matching reference photo!)
-   ========================================== */
+.robot-eye.blinking { transform: scaleY(0.06) !important; }
 
 .robot-mouth-socket {
   position: relative;
-  height: 52px;
-  min-width: 160px;
+  height: 48px;
+  min-width: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   z-index: 2;
 }
 
-/* Warm, Kind, Filled Glowing Cyan Mouth */
 .robot-smile-filled {
-  width: 96px;
-  height: 42px;
-  background: linear-gradient(180deg, #E0F2FE 0%, #38BDF8 50%, #0284C7 100%);
-  /* Curved bottom crescent smile with flat top */
-  border-radius: 6px 6px 48px 48px;
+  width: 90px;
+  height: 38px;
+  background: linear-gradient(180deg, #E0F2FE 0%, #35BDF2 50%, #0284C7 100%);
+  border-radius: 6px 6px 44px 44px;
   box-shadow: var(--robot-cyan-glow);
   position: relative;
   overflow: hidden;
-  transition: all 0.35s ease;
-  animation: gentle-smile-breathe 4s infinite ease-in-out;
 }
 
-@keyframes gentle-smile-breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
+.robot-mouth-wave { display: flex; align-items: center; justify-content: center; gap: 5px; height: 40px; }
+.wave-bar { width: 5px; background: #35BDF2; border-radius: 4px; box-shadow: 0 0 12px #35BDF2; animation: wave-bounce 0.7s infinite alternate ease-in-out; }
+.wave-bar:nth-child(1) { height: 14px; animation-delay: 0.05s; }
+.wave-bar:nth-child(2) { height: 28px; animation-delay: 0.15s; }
+.wave-bar:nth-child(3) { height: 40px; animation-delay: 0.25s; }
+.wave-bar:nth-child(4) { height: 32px; animation-delay: 0.1s; }
+.wave-bar:nth-child(5) { height: 42px; animation-delay: 0.3s; }
+.wave-bar:nth-child(6) { height: 30px; animation-delay: 0.2s; }
+.wave-bar:nth-child(7) { height: 16px; animation-delay: 0.12s; }
 
-.robot-display-frame.state-listening .robot-smile-filled {
-  width: 80px;
-  height: 34px;
-  border-radius: 20px;
-  box-shadow: 0 0 25px var(--accent-warm), 0 0 50px rgba(245, 158, 11, 0.6);
-  background: linear-gradient(180deg, #FEF3C7 0%, #FBBF24 50%, #D97706 100%);
-}
+@keyframes wave-bounce { 0% { transform: scaleY(0.35); } 100% { transform: scaleY(1.3); } }
 
-/* Digital scanlines across the smile too */
-.smile-scanlines {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.22) 0px,
-    rgba(0, 0, 0, 0.22) 2px,
-    transparent 2px,
-    transparent 5px
-  );
-  pointer-events: none;
-  opacity: 0.65;
-}
-
-/* Speaking Wave Bars (When talking) */
-.robot-mouth-wave {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  height: 42px;
-}
-
-.robot-mouth-wave .wave-bar {
-  width: 6px;
-  background: linear-gradient(180deg, #E0F2FE, #38BDF8, #0284C7);
-  border-radius: 4px;
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.85);
-  animation: wave-bounce 0.7s infinite ease-in-out alternate;
-}
-
-.wave-bar:nth-child(1) { height: 16px; animation-delay: 0.05s; }
-.wave-bar:nth-child(2) { height: 30px; animation-delay: 0.15s; }
-.wave-bar:nth-child(3) { height: 42px; animation-delay: 0.25s; }
-.wave-bar:nth-child(4) { height: 34px; animation-delay: 0.1s; }
-.wave-bar:nth-child(5) { height: 44px; animation-delay: 0.3s; }
-.wave-bar:nth-child(6) { height: 32px; animation-delay: 0.2s; }
-.wave-bar:nth-child(7) { height: 18px; animation-delay: 0.12s; }
-
-@keyframes wave-bounce {
-  0% { transform: scaleY(0.35); opacity: 0.75; }
-  100% { transform: scaleY(1.3); opacity: 1; }
-}
-
-/* Thinking Neural Dots */
-.robot-mouth-thinking {
-  display: flex;
-  gap: 10px;
-}
-
-.robot-mouth-thinking .think-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--accent-primary-light);
-  box-shadow: 0 0 14px var(--accent-primary-light), 0 0 28px var(--accent-primary-glow);
-  animation: think-fade 1.2s infinite ease-in-out;
-}
-
+.robot-mouth-thinking { display: flex; gap: 8px; }
+.think-dot { width: 10px; height: 10px; border-radius: 50%; background: #35BDF2; box-shadow: 0 0 12px #35BDF2; animation: think-fade 1.2s infinite ease-in-out; }
 .think-dot:nth-child(1) { animation-delay: 0s; }
 .think-dot:nth-child(2) { animation-delay: 0.2s; }
 .think-dot:nth-child(3) { animation-delay: 0.4s; }
 
-@keyframes think-fade {
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.3); }
+@keyframes think-fade { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+/* ROBOT GREETING & TYPOGRAPHY */
+.robot-greeting-block {
+  text-align: center;
+  margin-top: 1.25rem;
 }
 
-/* ==========================================
-   TRANSCRIPT OVERLAY & INTERACTION DECK
-   ========================================== */
-
-.robot-transcript-overlay {
-  position: absolute;
-  bottom: 5.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 88%;
-  max-width: 780px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(1.4);
-  -webkit-backdrop-filter: blur(24px) saturate(1.4);
-  border: 1px solid var(--glass-border);
-  border-radius: 18px;
-  padding: 0.75rem 1.35rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  z-index: 15;
-  box-shadow: var(--glass-shadow);
-  transition: all 0.3s ease;
+.greeting-primary {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.5px;
+  line-height: 1.15;
 }
 
-.transcript-message {
-  font-size: 0.92rem;
-  color: var(--text-primary);
-  line-height: 1.45;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.greeting-secondary {
+  font-size: 1.05rem;
   font-weight: 500;
-}
-
-.transcript-message strong {
-  color: var(--accent-primary);
-  margin-right: 0.45rem;
-}
-
-.transcript-indicator {
-  font-size: 0.76rem;
   color: var(--text-muted);
-  font-weight: 700;
-  flex-shrink: 0;
+  margin-top: 0.2rem;
 }
 
-/* Floating Bottom Control Deck */
-.integrated-display-deck {
-  position: absolute;
-  bottom: 1.1rem;
-  left: 50%;
-  transform: translateX(-50%);
+/* ACTION STEP BANNER CARD */
+.action-step-card {
+  margin-top: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--saathi-cyan);
+  border-radius: 14px;
+  padding: 0.65rem 1.2rem;
+  box-shadow: 0 8px 25px var(--saathi-cyan-glow);
+  text-align: center;
+  animation: action-card-pop 0.3s ease;
+}
+
+@keyframes action-card-pop {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.action-card-header { font-size: 0.72rem; font-weight: 700; color: var(--saathi-cyan); text-transform: uppercase; }
+.action-card-title { font-size: 0.88rem; font-weight: 700; color: var(--text-dark); margin: 0.1rem 0; }
+.action-card-step { font-size: 0.78rem; color: #10B981; font-weight: 600; }
+
+/* LARGE SYSTEM MICROPHONE BUTTON */
+.voice-mic-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
-  z-index: 20;
-  width: 90%;
-  max-width: 880px;
+  gap: 0.4rem;
+  margin-top: 1.4rem;
 }
 
-/* Giant Floating Voice Mic */
-.giant-mic-btn {
-  width: 54px;
-  height: 54px;
+.main-mic-button {
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: var(--accent-primary);
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, #35BDF2 0%, #0284C7 100%);
+  border: 3px solid #FFFFFF;
   color: #FFFFFF;
-  font-size: 1.45rem;
+  font-size: 1.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 25px var(--accent-primary-glow);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  flex-shrink: 0;
+  box-shadow: 0 10px 30px var(--saathi-cyan-glow);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.giant-mic-btn:hover {
+.main-mic-button:hover {
   transform: scale(1.08);
-  box-shadow: 0 12px 30px var(--accent-primary-glow);
+  box-shadow: 0 14px 40px var(--saathi-cyan-glow);
 }
 
-.giant-mic-btn.active {
-  background: var(--accent-warm);
-  border-color: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 0 25px var(--accent-warm);
+.main-mic-button.listening {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.7);
   animation: mic-pulse 1.4s infinite ease-in-out;
 }
 
 @keyframes mic-pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--accent-warm); }
-  50% { transform: scale(1.1); box-shadow: 0 0 35px var(--accent-warm); }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(245, 158, 11, 0.6); }
+  50% { transform: scale(1.1); box-shadow: 0 0 45px rgba(245, 158, 11, 0.9); }
 }
 
-/* Quick Voice Prompt Chips */
+.mic-listening-waves { display: flex; gap: 4px; align-items: center; }
+.mwave { width: 4px; height: 18px; background: #FFF; border-radius: 2px; animation: mwave-anim 0.6s infinite alternate ease-in-out; }
+.mwave:nth-child(2) { height: 26px; animation-delay: 0.15s; }
+.mwave:nth-child(3) { height: 16px; animation-delay: 0.3s; }
+@keyframes mwave-anim { 0% { transform: scaleY(0.4); } 100% { transform: scaleY(1.2); } }
+
+.mic-caption {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: 0.3px;
+}
+
+/* ==========================================
+   4. BOTTOM COMPACT CONVERSATION STRIP & PROMPTS
+   ========================================== */
+
+.morning-footer-bar {
+  position: relative;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 2.5rem 1.25rem 2.5rem;
+}
+
+.compact-conversation-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  padding: 0.55rem 1.4rem;
+  border-radius: 9999px;
+  box-shadow: var(--card-shadow);
+  max-width: 850px;
+  width: 100%;
+}
+
+.dialogue-line {
+  font-size: 0.84rem;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dialogue-speaker {
+  font-weight: 700;
+  color: var(--saathi-cyan);
+  margin-right: 0.4rem;
+}
+
+.dialogue-divider {
+  color: var(--card-border);
+}
+
 .voice-chips-rack {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 0.2rem 0;
-}
-
-.voice-chips-rack::-webkit-scrollbar {
-  display: none;
+  gap: 0.5rem;
 }
 
 .voice-chip {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
-  padding: 0.42rem 0.85rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-dark);
+  padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   font-size: 0.76rem;
   font-weight: 600;
-  white-space: nowrap;
   cursor: pointer;
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--card-shadow);
   transition: all 0.2s ease;
   font-family: inherit;
 }
 
 .voice-chip:hover {
-  background: var(--accent-primary);
+  background: var(--saathi-cyan);
   color: #FFFFFF;
-  border-color: var(--accent-primary);
+  border-color: var(--saathi-cyan);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px var(--accent-primary-glow);
 }
 
 .voice-chip.close-chip {
-  border-color: var(--accent-danger);
-  color: var(--accent-danger);
+  color: #DC2626;
+  border-color: rgba(220, 38, 38, 0.3);
 }
 
-.voice-chip.close-chip:hover {
-  background: var(--accent-danger);
-  color: #FFFFFF;
-}
-
-/* Command Input Bar */
 .command-input-bar {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  width: 260px;
-  flex-shrink: 0;
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
+  width: 300px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 9999px;
-  padding: 0.25rem 0.35rem 0.25rem 0.85rem;
-  box-shadow: var(--glass-shadow);
+  padding: 0.2rem 0.3rem 0.2rem 0.9rem;
+  box-shadow: var(--card-shadow);
 }
 
 .command-input-bar input {
@@ -1051,30 +956,20 @@
   background: transparent;
   border: none;
   outline: none;
-  color: var(--text-primary);
-  font-size: 0.82rem;
+  color: var(--text-dark);
+  font-size: 0.8rem;
   font-family: inherit;
-}
-
-.command-input-bar input::placeholder {
-  color: var(--text-muted);
 }
 
 .command-input-bar button {
-  background: var(--accent-primary);
+  background: var(--saathi-cyan);
   border: none;
   color: #FFFFFF;
-  padding: 0.35rem 0.75rem;
+  padding: 0.3rem 0.75rem;
   border-radius: 9999px;
+  font-size: 0.76rem;
   font-weight: 700;
-  font-size: 0.78rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.command-input-bar button:hover {
-  transform: scale(1.05);
 }
 
 /* ==========================================
@@ -1084,18 +979,12 @@
 .hud-drawer-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(38, 52, 58, 0.4);
   backdrop-filter: blur(8px);
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .hud-drawer-panel {
@@ -1107,14 +996,7 @@
   box-shadow: var(--panel-shadow);
   display: flex;
   flex-direction: column;
-  animation: slideLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
-  transition: background 0.3s ease;
-}
-
-@keyframes slideLeft {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
 }
 
 .hud-drawer-header {
@@ -1122,336 +1004,73 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.4rem 1.6rem;
-  border-bottom: 1px solid var(--glass-border);
-  position: sticky;
-  top: 0;
-  background: var(--panel-bg);
-  backdrop-filter: blur(20px);
-  z-index: 10;
+  border-bottom: 1px solid var(--card-border);
 }
 
-.hud-drawer-title {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.hud-drawer-title .drawer-icon {
-  font-size: 1.6rem;
-}
-
-.hud-drawer-title h2 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.hud-drawer-title p {
-  font-size: 0.78rem;
-  color: var(--accent-primary);
-  margin: 0;
-}
+.hud-drawer-title { display: flex; align-items: center; gap: 0.75rem; }
+.drawer-icon { font-size: 1.6rem; }
+.hud-drawer-title h2 { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin: 0; }
+.hud-drawer-title p { font-size: 0.78rem; color: var(--saathi-cyan); margin: 0; }
 
 .hud-drawer-close-btn {
-  background: rgba(125, 125, 125, 0.08);
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
+  background: rgba(125, 125, 125, 0.1);
+  border: none;
+  color: var(--text-dark);
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.hud-drawer-close-btn:hover {
-  background: var(--accent-danger);
-  color: #FFFFFF;
-  border-color: var(--accent-danger);
-}
+.hud-drawer-content { padding: 1.5rem 1.6rem; display: flex; flex-direction: column; gap: 1.1rem; }
 
-.hud-drawer-content {
-  padding: 1.5rem 1.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-}
-
-/* Cards in HUD */
 .hud-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   padding: 1.15rem;
-  transition: all 0.2s ease;
 }
 
-.hud-card:hover {
-  border-color: var(--accent-primary-light);
-  box-shadow: 0 4px 18px var(--accent-primary-glow);
-}
+.hud-card-header { display: flex; justify-content: space-between; margin-bottom: 0.45rem; }
+.hud-card-badge { font-size: 0.68rem; font-weight: 700; color: var(--saathi-cyan); }
+.hud-card-date { font-size: 0.68rem; color: var(--text-muted); }
+.hud-card-title { font-size: 0.96rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.35rem; }
+.hud-card-body { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+.hud-tags { display: flex; gap: 0.35rem; margin-top: 0.65rem; }
+.hud-tag { font-size: 0.68rem; color: var(--text-muted); background: rgba(125, 125, 125, 0.1); padding: 0.1rem 0.45rem; border-radius: 6px; }
 
-.hud-card.newly-added {
-  border-color: var(--accent-primary);
-  background: var(--accent-primary-glow);
-  box-shadow: 0 0 20px var(--accent-primary-glow);
-  animation: pulse-card 2s infinite ease-in-out;
-}
+.hud-task-item { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1.05rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; }
+.hud-task-left { display: flex; align-items: center; gap: 0.75rem; }
+.hud-task-checkbox { width: 19px; height: 19px; accent-color: var(--saathi-cyan); cursor: pointer; }
+.hud-task-time { font-size: 0.75rem; font-weight: 700; color: var(--saathi-cyan); background: var(--saathi-cyan-glow); padding: 0.15rem 0.5rem; border-radius: 6px; }
 
-@keyframes pulse-card {
-  0%, 100% { border-color: var(--accent-primary); }
-  50% { border-color: var(--accent-primary-light); }
-}
+.hud-family-member { display: flex; justify-content: space-between; align-items: center; padding: 0.95rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; }
+.hud-action-btn { background: var(--saathi-cyan); border: none; color: #FFF; padding: 0.38rem 0.85rem; border-radius: 8px; font-size: 0.76rem; font-weight: 700; cursor: pointer; }
 
-.hud-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.45rem;
-}
+.telemetry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+.telemetry-stat { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 0.95rem; }
+.telemetry-stat-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; }
+.telemetry-stat-value { font-size: 1.2rem; font-weight: 800; color: var(--saathi-cyan); }
 
-.hud-card-badge {
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 0.15rem 0.5rem;
-  border-radius: 6px;
-  background: var(--accent-primary-glow);
-  color: var(--accent-primary);
-  letter-spacing: 0.4px;
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 1024px) {
+  .robot-arena {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    overflow-y: auto;
+  }
+  .side-panel {
+    flex-direction: row;
+    width: 100%;
+  }
+  .panel-card { flex: 1; }
+  .morning-room-background { opacity: 0.5; }
 }
-
-.hud-card-date {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-}
-
-.hud-card-title {
-  font-size: 0.96rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.35rem;
-}
-
-.hud-card-body {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  line-height: 1.55;
-}
-
-.hud-tags {
-  display: flex;
-  gap: 0.35rem;
-  flex-wrap: wrap;
-  margin-top: 0.65rem;
-}
-
-.hud-tag {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  background: rgba(125, 125, 125, 0.08);
-  border: 1px solid var(--glass-border);
-  padding: 0.12rem 0.45rem;
-  border-radius: 6px;
-}
-
-/* Tasks in HUD */
-.hud-task-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.85rem 1.05rem;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  transition: all 0.2s ease;
-}
-
-.hud-task-item:hover {
-  border-color: var(--accent-primary-light);
-}
-
-.hud-task-item.completed {
-  opacity: 0.55;
-}
-
-.hud-task-item.completed .hud-card-title,
-.hud-task-item.completed div[style*="fontWeight"] {
-  text-decoration: line-through;
-}
-
-.hud-task-left {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.hud-task-checkbox {
-  width: 19px;
-  height: 19px;
-  accent-color: var(--accent-primary);
-  cursor: pointer;
-}
-
-.hud-task-time {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--accent-warm);
-  background: var(--accent-warm-glow);
-  border: 1px solid var(--accent-warm);
-  padding: 0.15rem 0.5rem;
-  border-radius: 6px;
-}
-
-/* Family in HUD */
-.hud-family-member {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.95rem;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  transition: all 0.2s ease;
-}
-
-.hud-family-member:hover {
-  border-color: var(--accent-primary-light);
-}
-
-.hud-action-btn {
-  background: var(--accent-primary-glow);
-  border: 1px solid var(--accent-primary);
-  color: var(--accent-primary);
-  padding: 0.38rem 0.85rem;
-  border-radius: 8px;
-  font-size: 0.76rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.hud-action-btn:hover {
-  background: var(--accent-primary);
-  color: #FFFFFF;
-  box-shadow: 0 3px 12px var(--accent-primary-glow);
-}
-
-/* Telemetry Grid */
-.telemetry-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.85rem;
-}
-
-.telemetry-stat {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 0.95rem;
-}
-
-.telemetry-stat-label {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.25rem;
-}
-
-.telemetry-stat-value {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--accent-primary);
-}
-
-/* ==========================================
-   RESPONSIVE ADAPTATIONS
-   ========================================== */
 
 @media (max-width: 768px) {
-  .os-ambient-bar {
-    padding: 0.4rem 0.75rem;
-    gap: 0.35rem;
-    top: 0.5rem;
-    left: 0.5rem;
-    right: 0.5rem;
-    border-radius: 14px;
-  }
-
-  .os-nav-tabs {
-    display: none;
-  }
-
-  .robot-head-pod {
-    width: 320px;
-    height: 250px;
-    border-radius: 80px;
-    padding: 10px;
-  }
-
-  .robot-bezel-frame {
-    border-radius: 65px;
-    padding: 8px;
-  }
-
-  .robot-face-stage {
-    border-radius: 55px;
-  }
-
-  .robot-eyes-row {
-    gap: 2.6rem;
-  }
-
-  .robot-eye-socket {
-    width: 60px;
-    height: 80px;
-  }
-
-  .robot-eye {
-    width: 50px;
-    height: 75px;
-    border-radius: 25px;
-  }
-
-  .robot-brows-row {
-    gap: 3.5rem;
-  }
-
-  .soft-brow {
-    width: 30px;
-  }
-
-  .robot-smile-filled {
-    width: 75px;
-    height: 32px;
-  }
-
-  .robot-transcript-overlay {
-    width: 94%;
-    padding: 0.55rem 0.9rem;
-    bottom: 5rem;
-  }
-
-  .integrated-display-deck {
-    width: 94%;
-    gap: 0.4rem;
-  }
-
-  .hud-drawer-panel {
-    max-width: 100%;
-  }
-
-  .voice-chips-rack {
-    display: none;
-  }
-
-  .command-input-bar {
-    width: 180px;
-  }
+  .morning-header { padding: 1rem 1.25rem; }
+  .side-panel { flex-direction: column; }
+  .compact-conversation-strip { flex-direction: column; gap: 0.2rem; border-radius: 16px; }
+  .dialogue-divider { display: none; }
+  .voice-chips-rack { display: none; }
 }

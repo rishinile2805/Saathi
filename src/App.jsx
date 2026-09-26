@@ -37,6 +37,7 @@ export default function App() {
   const [transcript, setTranscript] = useState('')
   const [lastResponse, setLastResponse] = useState('Hello! I am right here listening whenever you want to talk.')
   const [inputText, setInputText] = useState('')
+  const [actionStep, setActionStep] = useState(null) // null | { title, step }
 
   // Theme Support ('light' | 'dark')
   const [theme, setTheme] = useState(() => {
@@ -464,7 +465,13 @@ export default function App() {
     )
 
     if (isTaskCommand) {
+      setActionStep({ title: raw, step: 'Understanding request...' })
+      setRobotState('thinking')
       setActiveDrawer('tasks')
+
+      setTimeout(() => {
+        setActionStep({ title: raw, step: 'Creating reminder...' })
+      }, 700)
 
       const parseRes = await api(`/tasks/${USER_ID}/parse`, {
         method: 'POST',
@@ -472,8 +479,8 @@ export default function App() {
       })
 
       const taskTitle = parseRes.task?.title || raw
-      const taskTime = parseRes.task?.time || '12:00'
-      const taskPeriod = parseRes.task?.period || 'Afternoon'
+      const taskTime = parseRes.task?.time || '18:00'
+      const taskPeriod = parseRes.task?.period || 'Evening'
 
       const saveRes = await api(`/tasks/${USER_ID}`, {
         method: 'POST',
@@ -485,11 +492,17 @@ export default function App() {
         setTasks(prev => [...prev, saveRes.task])
       }
 
+      setActionStep({ title: taskTitle, step: 'Reminder set!' })
+
       const reply = selectedLang === 'hi'
-        ? `आपके शेड्यूल में "${taskTitle}" को ${taskTime} के लिए जोड़ दिया गया है।`
-        : `Added "${taskTitle}" for ${taskTime} to your schedule.`
+        ? `हो गया! मैंने आपका रिमाइंडर ${taskTime} बजे के लिए सेट कर दिया है।`
+        : `Done. I've set your reminder for ${taskTime}.`
       setLastResponse(reply)
       speakText(reply)
+
+      setTimeout(() => {
+        setActionStep(null)
+      }, 3500)
       return
     }
 
@@ -728,264 +741,338 @@ export default function App() {
 
   return (
     <div className={`jarvis-robot-app theme-${theme}`}>
-      {/* ---------------- Organic OS Floating Top Bar ---------------- */}
-      <div className="os-ambient-bar">
-        <div className="os-brand-indicator">
-          <span className="os-core-gem"></span>
-          <span className="os-title">SAATHI BRAIN OS</span>
-          <span className="os-badge-chip">{selectedLang.toUpperCase()}</span>
+      {/* ---------------- 1. MORNING WINDOW LIVING BACKGROUND LAYERS ---------------- */}
+      <div className="morning-room-background">
+        {/* Soft morning sky & distant foliage outside window */}
+        <div className="window-pane-backdrop">
+          <div className="distant-trees"></div>
+          <div className="morning-sun-beam"></div>
         </div>
 
-        <div className="os-actions-cluster">
-          {/* Quick HUD Peeking Tabs */}
-          <div className="os-nav-tabs">
-            <button 
-              className={`os-tab-btn ${activeDrawer === 'memories' ? 'active' : ''}`}
-              onClick={() => setActiveDrawer(activeDrawer === 'memories' ? null : 'memories')}
-              title="Memory Vault"
-            >
-              🧠 Memories ({memories.length})
-            </button>
-            <button 
-              className={`os-tab-btn ${activeDrawer === 'tasks' ? 'active' : ''}`}
-              onClick={() => setActiveDrawer(activeDrawer === 'tasks' ? null : 'tasks')}
-              title="Daily Routine"
-            >
-              📅 Routine ({tasks.filter(t => !t.completed).length})
-            </button>
-            <button 
-              className={`hud-icon-btn ${activeDrawer === 'family' ? 'active' : ''}`}
-              onClick={() => setActiveDrawer(activeDrawer === 'family' ? null : 'family')}
-              title="Family Bridge"
-            >
-              👨‍👩‍👧 Family
-            </button>
-            <button 
-              className={`hud-icon-btn ${activeDrawer === 'robot' ? 'active' : ''}`}
-              onClick={() => setActiveDrawer(activeDrawer === 'robot' ? null : 'robot')}
-              title="Core System Diagnostics"
-            >
-              ⚡ Diagnostics
-            </button>
+        {/* Indoor Plants with subtle movement */}
+        <div className="indoor-plant plant-left"></div>
+        <div className="indoor-plant plant-right"></div>
+        
+        {/* Soft dust particles floating in sunlight */}
+        <div className="floating-dust-particle p1"></div>
+        <div className="floating-dust-particle p2"></div>
+        <div className="floating-dust-particle p3"></div>
+
+        {/* Foreground Warm Wooden Table Surface with objects */}
+        <div className="foreground-desk-surface">
+          <div className="desk-object notebook" title="Personal Journal"></div>
+          <div className="desk-object tea-cup" title="Warm Tea"></div>
+          <div className="desk-object reading-glasses" title="Reading Glasses"></div>
+        </div>
+      </div>
+
+      {/* ---------------- 2. TOP HEADER BAR ---------------- */}
+      <header className="morning-header">
+        {/* TOP LEFT: Minimal Saathi Branding */}
+        <div className="saathi-brand-header">
+          <div className="brand-robot-icon">🤖</div>
+          <div>
+            <h1 className="brand-title">Saathi</h1>
+            <p className="brand-subtitle">Always here. Always listening.</p>
+          </div>
+        </div>
+
+        {/* TOP RIGHT: System Status & Time */}
+        <div className="morning-system-info">
+          <div className="online-indicator">
+            <span className="status-dot"></span>
+            Saathi Online
           </div>
 
-          {/* Theme Switcher Button */}
+          <div className="time-weather-pill">
+            <span className="weather-sun">☀</span>
+            <span className="time-text">06:45 AM</span>
+            <span className="date-text">Mon, 12 May</span>
+          </div>
+
+          {/* Quick HUD Peeking Tabs */}
           <button 
             className="os-theme-btn"
             onClick={() => setTheme(prev => prev === 'light' ? 'dark' : 'light')}
             title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
-            aria-label="Toggle Light and Dark Mode"
           >
             {theme === 'light' ? '🌙' : '☀️'}
-            <span className="theme-btn-label">{theme === 'light' ? 'Dark' : 'Light'}</span>
           </button>
-
-          {/* Language Selector */}
-          <div className="lang-selector-pill">
-            <span className="lang-icon">🌐</span>
-            <select
-              value={selectedLang}
-              onChange={(e) => {
-                const newLang = e.target.value
-                setSelectedLang(newLang)
-                const greetings = {
-                  en: "Language set to English. How can I help you today?",
-                  hi: "भाषा बदलकर हिंदी कर दी गई है। आज मैं आपकी क्या सेवा करूँ?",
-                  es: "Idioma cambiado a español. ¿Cómo puedo ayudarte hoy?",
-                  fr: "Langue changée en français. Comment puis-je vous aider?",
-                  de: "Sprache auf Deutsch geändert. Wie kann ich Ihnen heute helfen?",
-                  ta: "மொழி தமிழுக்கு மாற்றப்பட்டது. நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?",
-                  te: "భాష తెలుగుకు మార్చబడింది. నేను మీకు ఎలా సహాయం చేయగలను?",
-                  bn: "ভাষা পরিবর্তন করে বাংলা করা হয়েছে। আমি আপনাকে কীভাবে সাহায্য করতে পারি?",
-                  mr: "भाषा बदलून मराठी करण्यात आली आहे. आज मी तुम्हाला कशी मदत करू शकतो?",
-                }
-                const msg = greetings[newLang] || greetings.en
-                setLastResponse(msg)
-                speakText(msg)
-              }}
-              className="lang-select-dropdown"
-              title="Change Companion Language"
-            >
-              <option value="en">English (US/UK)</option>
-              <option value="hi">हिंदी (Hindi)</option>
-              <option value="es">Español (Spanish)</option>
-              <option value="fr">Français (French)</option>
-              <option value="de">Deutsch (German)</option>
-              <option value="bn">বাংলা (Bengali)</option>
-              <option value="ta">தமிழ் (Tamil)</option>
-              <option value="te">తెలుగు (Telugu)</option>
-              <option value="mr">मराठी (Marathi)</option>
-            </select>
-          </div>
-
-          <div className="status-badge">
-            <span className={`status-dot ${isListening ? 'listening' : ''}`}></span>
-            {isListening ? 'LISTENING' : robotState.toUpperCase()}
-          </div>
 
           <button 
-            className="os-sound-btn"
-            onClick={() => setSoundEnabled(!soundEnabled)}
-            title={soundEnabled ? 'Mute Speech Voice' : 'Unmute Speech Voice'}
+            className="hud-icon-btn"
+            onClick={() => setActiveDrawer(activeDrawer === 'robot' ? null : 'robot')}
+            title="System Settings & Diagnostics"
           >
-            {soundEnabled ? '🔊' : '🔇'}
+            ⚙️
           </button>
         </div>
-      </div>
+      </header>
 
-      {/* ---------------- Main Brain Screen Arena (Full Viewport Organic Display) ---------------- */}
+      {/* ---------------- 3. MAIN CENTRED SAATHI HERO ARENA ---------------- */}
       <main className="robot-arena">
-        <div className={`robot-display-frame state-${robotState}`}>
-          {/* Calming White & Ethereal Ambient Halo */}
-          <div className="robot-ambient-halo"></div>
-
-          {/* 3D Soft Companion Robot Head & Visor (Matches User Reference) */}
-          <div className="robot-head-pod">
-            {/* Friendly Swivel Earpads */}
-            <div className="robot-pod-ear left-ear">
-              <div className="ear-inner-glow"></div>
+        {/* LEFT PANEL: TODAY'S PLAN CARD */}
+        <aside className="side-panel left-panel">
+          <div className="panel-card plan-card">
+            <div className="panel-card-header">
+              <span className="panel-icon">📅</span>
+              <h3>Today's Plan</h3>
             </div>
-            <div className="robot-pod-ear right-ear">
-              <div className="ear-inner-glow"></div>
-            </div>
+            <ul className="plan-list">
+              <li className="plan-item done">
+                <span className="plan-time">08:00</span>
+                <span className="plan-text">Morning medicine</span>
+                <span className="plan-status">✓ Done</span>
+              </li>
+              <li className="plan-item">
+                <span className="plan-time">13:00</span>
+                <span className="plan-text">Call Meena</span>
+                <span className="plan-status upcoming">Upcoming</span>
+              </li>
+              <li className="plan-item">
+                <span className="plan-time">17:30</span>
+                <span className="plan-text">Evening walk</span>
+                <span className="plan-status upcoming">Upcoming</span>
+              </li>
+              <li className="plan-item">
+                <span className="plan-time">18:00</span>
+                <span className="plan-text">Water plants</span>
+                <span className="plan-status upcoming">Upcoming</span>
+              </li>
+            </ul>
+            <button 
+              className="panel-footer-btn"
+              onClick={() => setActiveDrawer('tasks')}
+            >
+              View Full Schedule →
+            </button>
+          </div>
+        </aside>
 
-            {/* Top Forehead Accent Seam & Indicator */}
-            <div className="robot-forehead-groove"></div>
-            
-            {/* Inner Soft Blue Bezel Frame */}
-            <div className="robot-bezel-frame">
-              {/* Glossy Curved OLED Face Screen */}
-              <div className={`robot-face-stage mood-${mood}`}>
-                {/* Screen Reflection Sheen */}
-                <div className="visor-gloss-reflection"></div>
+        {/* CENTER: SAATHI HERO ROBOT & GREETING */}
+        <section className="center-robot-section">
+          <div className={`robot-display-frame state-${robotState}`}>
+            {/* Soft Breathing Halo */}
+            <div className="robot-ambient-halo"></div>
 
-                {/* Gentle Friendly Eyebrows */}
-                <div className="robot-brows-row">
-                  <div className="soft-brow left-brow"></div>
-                  <div className="soft-brow right-brow"></div>
-                </div>
+            {/* UNCHANGED ROBOT FACE HARDWARE */}
+            <div className="robot-head-pod">
+              <div className="robot-pod-ear left-ear">
+                <div className="ear-inner-glow"></div>
+              </div>
+              <div className="robot-pod-ear right-ear">
+                <div className="ear-inner-glow"></div>
+              </div>
 
-                {/* Glowing Cyan Pill-Shaped Eyes with Scanline Digital Texture */}
-                <div className="robot-eyes-row">
-                  <div className="robot-eye-socket">
-                    <div className={`robot-eye left-eye ${isBlinking ? 'blinking' : ''}`}>
-                      <div className="eye-scanlines"></div>
-                      <div className="eye-digital-gleam"></div>
+              <div className="robot-forehead-groove"></div>
+              
+              <div className="robot-bezel-frame">
+                <div className={`robot-face-stage mood-${mood}`}>
+                  <div className="visor-gloss-reflection"></div>
+
+                  <div className="robot-brows-row">
+                    <div className="soft-brow left-brow"></div>
+                    <div className="soft-brow right-brow"></div>
+                  </div>
+
+                  <div className="robot-eyes-row">
+                    <div className="robot-eye-socket">
+                      <div className={`robot-eye left-eye ${isBlinking ? 'blinking' : ''}`}>
+                        <div className="eye-scanlines"></div>
+                        <div className="eye-digital-gleam"></div>
+                      </div>
+                    </div>
+                    <div className="robot-eye-socket">
+                      <div className={`robot-eye right-eye ${isBlinking ? 'blinking' : ''}`}>
+                        <div className="eye-scanlines"></div>
+                        <div className="eye-digital-gleam"></div>
+                      </div>
                     </div>
                   </div>
-                  <div className="robot-eye-socket">
-                    <div className={`robot-eye right-eye ${isBlinking ? 'blinking' : ''}`}>
-                      <div className="eye-scanlines"></div>
-                      <div className="eye-digital-gleam"></div>
-                    </div>
+
+                  <div className="robot-mouth-socket">
+                    {robotState === 'speaking' ? (
+                      <div className="robot-mouth-wave">
+                        <div className="wave-bar"></div>
+                        <div className="wave-bar"></div>
+                        <div className="wave-bar"></div>
+                        <div className="wave-bar"></div>
+                        <div className="wave-bar"></div>
+                        <div className="wave-bar"></div>
+                        <div className="wave-bar"></div>
+                      </div>
+                    ) : robotState === 'thinking' ? (
+                      <div className="robot-mouth-thinking">
+                        <div className="think-dot"></div>
+                        <div className="think-dot"></div>
+                        <div className="think-dot"></div>
+                      </div>
+                    ) : (
+                      <div className="robot-smile-filled">
+                        <div className="smile-scanlines"></div>
+                      </div>
+                    )}
                   </div>
                 </div>
+              </div>
+            </div>
 
-                {/* Soft Glowing Gentle Smile / Waveform */}
-                <div className="robot-mouth-socket">
-                  {robotState === 'speaking' ? (
-                    /* Joyful Speaking Waveform */
-                    <div className="robot-mouth-wave">
-                      <div className="wave-bar"></div>
-                      <div className="wave-bar"></div>
-                      <div className="wave-bar"></div>
-                      <div className="wave-bar"></div>
-                      <div className="wave-bar"></div>
-                      <div className="wave-bar"></div>
-                      <div className="wave-bar"></div>
-                    </div>
-                  ) : robotState === 'thinking' ? (
-                    /* Thinking Waveform Dots */
-                    <div className="robot-mouth-thinking">
-                      <div className="think-dot"></div>
-                      <div className="think-dot"></div>
-                      <div className="think-dot"></div>
-                    </div>
-                  ) : (
-                    /* Warm, Kind, Filled Glowing Cyan Smile */
-                    <div className="robot-smile-filled">
-                      <div className="smile-scanlines"></div>
-                    </div>
-                  )}
+            {/* ROBOT GREETING */}
+            <div className="robot-greeting-block">
+              {robotState === 'listening' ? (
+                <>
+                  <h2 className="greeting-primary">I'm listening...</h2>
+                  <p className="greeting-secondary">Speak naturally, Ramesh ji.</p>
+                </>
+              ) : robotState === 'thinking' ? (
+                <>
+                  <h2 className="greeting-primary">Let me take care of that.</h2>
+                  <p className="greeting-secondary">Processing your request...</p>
+                </>
+              ) : (
+                <>
+                  <h2 className="greeting-primary">Good morning, Ramesh.</h2>
+                  <p className="greeting-secondary">I'm here with you.</p>
+                </>
+              )}
+            </div>
+
+            {/* ACTION CARD STEP BANNER (When Saathi performs action) */}
+            {actionStep && (
+              <div className="action-step-card">
+                <div className="action-card-header">
+                  <span>⚡ Taking care of it</span>
                 </div>
+                <div className="action-card-title">"{actionStep.title}"</div>
+                <div className="action-card-step">{actionStep.step}</div>
+              </div>
+            )}
+
+            {/* LARGE VOICE MIC BUTTON */}
+            <div className="voice-mic-container">
+              <button 
+                className={`main-mic-button ${isListening ? 'listening' : ''}`}
+                onClick={toggleListening}
+                aria-label="Tap to speak with Saathi"
+              >
+                {isListening ? (
+                  <div className="mic-listening-waves">
+                    <span className="mwave"></span>
+                    <span className="mwave"></span>
+                    <span className="mwave"></span>
+                  </div>
+                ) : (
+                  <span className="mic-icon">🎙️</span>
+                )}
+              </button>
+              <div className="mic-caption">
+                {isListening ? 'Listening...' : 'Tap to talk'}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* RIGHT PANEL: CONTEXTUAL MEMORY CARDS */}
+        <aside className="side-panel right-panel">
+          <div className="panel-card memory-card">
+            <div className="panel-card-header">
+              <span className="panel-icon">🌹</span>
+              <h3>Saathi remembers</h3>
+            </div>
+            <div className="memory-card-body">
+              <p className="memory-text">Your roses are blooming beautifully this week.</p>
+              <div className="memory-card-actions">
+                <button 
+                  className="memory-action-btn"
+                  onClick={() => speakText("Your roses are blooming beautifully this week, Ramesh ji. You mentioned planting them last autumn.")}
+                >
+                  🔊 Listen
+                </button>
+                <button 
+                  className="memory-action-btn secondary"
+                  onClick={() => setActiveDrawer('memories')}
+                >
+                  Read more
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Integrated Real-time Spoken Transcript */}
-          <div className="robot-transcript-overlay">
-            <div className="transcript-message">
-              <strong>{isListening ? 'Listening:' : 'Saathi:'}</strong>
-              {isListening ? (transcript || 'Listening to your voice...') : lastResponse}
+          <div className="panel-card memory-card story-card">
+            <div className="panel-card-header">
+              <span className="panel-icon">🚂</span>
+              <h3>Talk about</h3>
             </div>
-            <div className="transcript-indicator">
-              {robotState === 'speaking' && '🔊 Speaking'}
-              {robotState === 'listening' && '🎙️ Listening'}
-              {robotState === 'thinking' && '🧠 Thinking'}
-              {robotState === 'idle' && '✨ Ready'}
+            <div className="memory-card-body">
+              <h4 className="story-title">Your railway days</h4>
+              <p className="memory-text">You have such interesting stories from the northern lines...</p>
+              <button 
+                className="memory-action-btn"
+                onClick={() => handleVoiceCommand("Tell me about my railway days")}
+              >
+                💬 Chat about this
+              </button>
             </div>
           </div>
+        </aside>
+      </main>
 
-          {/* Integrated Software Floating Mic & Natural Voice Hub (Within Display) */}
-          <div className="integrated-display-deck">
-            <button 
-              className={`giant-mic-btn ${isListening ? 'active' : ''}`}
-              onClick={toggleListening}
-              aria-label="Tap to speak with Saathi"
-              title="Click or Tap to Speak"
-            >
-              {isListening ? '⏹️' : '🎙️'}
-            </button>
-
-            {/* Quick Context Prompts */}
-            <div className="voice-chips-rack">
-              <button 
-                className="voice-chip"
-                onClick={() => handleVoiceCommand('Remember that I love eating roasted peanuts with evening tea')}
-              >
-                "Remember that I love roasted peanuts with tea"
-              </button>
-              <button 
-                className="voice-chip"
-                onClick={() => handleVoiceCommand('Remind me to take medicine at 5 PM')}
-              >
-                "Remind me to take medicine at 5 PM"
-              </button>
-              <button 
-                className="voice-chip"
-                onClick={() => handleVoiceCommand('Show my memories')}
-              >
-                "Show my memories"
-              </button>
-              <button 
-                className="voice-chip"
-                onClick={() => handleVoiceCommand('Call Priya')}
-              >
-                "Call Priya"
-              </button>
-              {activeDrawer && (
-                <button 
-                  className="voice-chip close-chip"
-                  onClick={() => handleVoiceCommand('Close')}
-                >
-                  ✕ "Close section"
-                </button>
-              )}
-            </div>
-
-            {/* Subtle Inline Software Command Bar */}
-            <form className="command-input-bar" onSubmit={handleTextSubmit}>
-              <input
-                type="text"
-                placeholder="Talk with Saathi or type here..."
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-              />
-              <button type="submit">Send</button>
-            </form>
+      {/* ---------------- 4. BOTTOM COMPACT CONVERSATION BAR & PROMPTS ---------------- */}
+      <footer className="morning-footer-bar">
+        {/* Compact Transcript & Response Display */}
+        <div className="compact-conversation-strip">
+          <div className="dialogue-line user-line">
+            <span className="dialogue-speaker">You:</span>
+            <span className="dialogue-text">{transcript || "Remind me to call Meena at 6."}</span>
+          </div>
+          <div className="dialogue-divider">│</div>
+          <div className="dialogue-line saathi-line">
+            <span className="dialogue-speaker">Saathi:</span>
+            <span className="dialogue-text">{lastResponse}</span>
           </div>
         </div>
-      </main>
+
+        {/* Quick Context Voice Chips */}
+        <div className="voice-chips-rack">
+          <button 
+            className="voice-chip"
+            onClick={() => handleVoiceCommand('Remind me to call Meena at 6')}
+          >
+            "Remind me to call Meena at 6"
+          </button>
+          <button 
+            className="voice-chip"
+            onClick={() => handleVoiceCommand('Remember that I love roasted peanuts with tea')}
+          >
+            "Remember that I love roasted peanuts with tea"
+          </button>
+          <button 
+            className="voice-chip"
+            onClick={() => handleVoiceCommand('Show my memories')}
+          >
+            "Show my memories"
+          </button>
+          {activeDrawer && (
+            <button 
+              className="voice-chip close-chip"
+              onClick={() => handleVoiceCommand('Close')}
+            >
+              ✕ Close section
+            </button>
+          )}
+        </div>
+
+        {/* Optional Manual Text Bar */}
+        <form className="command-input-bar" onSubmit={handleTextSubmit}>
+          <input
+            type="text"
+            placeholder="Or type a request..."
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+          <button type="submit">Send</button>
+        </form>
+      </footer>
 
       {/* ================================================================
           AUTONOMOUS HUD DRAWER
