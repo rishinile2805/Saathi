@@ -1,0 +1,55 @@
+{
+  "users": {},
+  "memories": [
+    {
+      "id": "mem_1790330980622",
+      "userId": "ramesh-001",
+      "type": "LIFE",
+      "title": "First Railway Job",
+      "content": "Ramesh worked at a railway office when he was younger.",
+      "tags": ["railway", "work", "youth"],
+      "importance": 0.9,
+      "createdAt": "2026-09-25T10:09:40.622Z"
+    },
+    {
+      "id": "mem_1790333359635",
+      "userId": "ramesh-001",
+      "type": "HOBBY",
+      "title": "Gardening & Roses",
+      "content": "I love gardening and I enjoy growing roses.",
+      "tags": ["gardening", "roses", "hobby"],
+      "importance": 0.9,
+      "createdAt": "2026-09-25T10:49:19.635Z"
+    },
+    {
+      "id": "mem_1790356767088",
+      "userId": "ramesh-001",
+      "type": "PREFERENCE",
+      "title": "Peanuts with Tea",
+      "content": "Loves eating roasted peanuts with evening tea.",
+      "tags": ["tea", "snacks", "evening"],
+      "importance": 0.8,
+      "createdAt": "2026-09-25T17:19:27.088Z"
+    },
+    {
+      "id": "mem_1790357518041",
+      "userId": "ramesh-001",
+      "type": "HOBBY",
+      "title": "Evening Fishing",
+      "content": "I like to go fishing in the evenings.",
+      "tags": ["fishing", "hobby", "evening"],
+      "importance": 0.8,
+      "createdAt": "2026-09-25T17:31:58.041Z"
+    },
+    {
+      "id": "mem_1790358102515",
+      "userId": "ramesh-001",
+      "type": "PREFERENCE",
+      "title": "Loves Fishing",
+      "content": "I love fishing.",
+      "tags": ["fishing", "hobby"],
+      "importance": 0.8,
+      "createdAt": "2026-09-25T17:41:42.515Z"
+    }
+  ]
+}
